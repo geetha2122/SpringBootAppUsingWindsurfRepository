@@ -52,6 +52,54 @@ services:
       start_period: 40s
     restart: unless-stopped
 
+  employee-service:
+    build: ./employee-service
+    container_name: employee-service
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:h2:mem:employeedb
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.h2.Driver
+      - SPRING_DATASOURCE_USERNAME=sa
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.H2Dialect
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+      - SPRING_H2_CONSOLE_ENABLED=true
+    networks:
+      - ecommerce-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8083/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+
+  department-service:
+    build: ./department-service
+    container_name: department-service
+    ports:
+      - "8084:8084"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:h2:mem:departmentdb
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.h2.Driver
+      - SPRING_DATASOURCE_USERNAME=sa
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.H2Dialect
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+      - SPRING_H2_CONSOLE_ENABLED=true
+    networks:
+      - ecommerce-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8084/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+
   # Optional: Add a reverse proxy for external access
   nginx:
     image: nginx:alpine
@@ -65,6 +113,8 @@ services:
     depends_on:
       - product-service
       - order-service
+      - employee-service
+      - department-service
     restart: unless-stopped
 
 networks:
@@ -74,3 +124,5 @@ networks:
 volumes:
   product-data:
   order-data:
+  employee-data:
+  department-data:
