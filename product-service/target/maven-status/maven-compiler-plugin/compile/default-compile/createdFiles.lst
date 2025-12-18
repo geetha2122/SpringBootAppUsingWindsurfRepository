@@ -1,0 +1,15 @@
+com\ecommerce\product\service\ProductService.class
+com\ecommerce\product\dto\ProductDto$ProductDtoBuilder.class
+com\ecommerce\product\controller\HealthController.class
+com\ecommerce\product\controller\ProductController.class
+com\ecommerce\product\exception\GlobalExceptionHandler$ErrorResponse$ErrorResponseBuilder.class
+com\ecommerce\product\exception\GlobalExceptionHandler.class
+com\ecommerce\product\entity\Product.class
+com\ecommerce\product\dto\ProductDto.class
+com\ecommerce\product\exception\GlobalExceptionHandler$ErrorResponse.class
+com\ecommerce\product\exception\ProductAlreadyExistsException.class
+com\ecommerce\product\exception\ProductNotFoundException.class
+com\ecommerce\product\entity\Product$ProductBuilder.class
+com\ecommerce\product\mapper\ProductMapper.class
+com\ecommerce\product\ProductServiceApplication.class
+com\ecommerce\product\repository\ProductRepository.class
